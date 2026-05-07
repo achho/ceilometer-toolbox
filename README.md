@@ -1,3 +1,7 @@
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/RUBclim/ceilometer-toolbox/main.svg)](https://results.pre-commit.ci/latest/github/RUBclim/ceilometer-toolbox/main)
+[![ci](https://github.com/RUBclim/ceilometer-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/RUBclim/ceilometer-toolbox/actions/workflows/ci.yml)
+[![deploy docs to gh-page](https://github.com/RUBclim/ceilometer-toolbox/actions/workflows/pages.yaml/badge.svg)](https://github.com/RUBclim/ceilometer-toolbox/actions/workflows/pages.yaml)
+
 # ceilometer-toolbox
 
 This is a unified collection of state-of-the-art tools for processing ceilometer data.
@@ -10,6 +14,8 @@ This makes use of the following tools:
 
 It builds a file tree to easily store and access data from multiple sensors, hiding
 multi-file and multi-folder complexity and making it easily accessible from python.
+
+Docs: https://rubclim.github.io/ceilometer-toolbox/
 
 ## installation
 
