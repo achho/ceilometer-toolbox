@@ -1,0 +1,11 @@
+[extreme]
+fraction_of_the_max_mlh_warm = 1
+fraction_of_the_max_mlh_cold = 0.75
+
+[massive_dec_night]
+threshold_decrease = -250
+time_steps_to_define_rolling_diff = 2
+
+[massive_inc_night]
+threshold_increase = 250
+time_steps_to_define_rolling_diff = 2

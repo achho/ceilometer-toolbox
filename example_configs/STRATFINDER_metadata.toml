@@ -1,0 +1,212 @@
+[Global_attributes]
+site_location = ""
+summary = "Automatic Lidar Ceilometers (ALC) are gathering valuable data that allow for the Atmospheric Boundary Layer Height (ABLH) and Mixed Layer Height (MLH) to be derived in near real time. A new generation of advanced methods to automatically detect the ABL heights now exist. Here, the advanced algorithm STRATfinder is applied to high signal-to-noise ratio (SNR) ALC (CHM15k or CL61) observations, to derive both ABLH and MLH. (Kotthaus et al. (2020), Remote Sens.)"
+references = "Kotthaus et al. 2020, RS"
+history = "L2B : product level after quality control applied on the L2A product (derived from the algorithm STRATfinder)"
+metadata_link = ""
+id = ""
+institution = "AERIS-ESPRI, LMD-IPSL"
+creator_name = "Simone Kothaus"
+creator_email = "sirtascience@lmd.ipsl.fr"
+creator_url = "https://ablh.aeris-data.fr/"
+creator_type = "person"
+creator_institution = "LMD-IPSL"
+contributor_name = "E-PROFILE, AERIS-ESPRI"
+contributor_role = "E-PROFILE provide the L1 files, AERIS-ESPRI designed and operated the data processsing workflow"
+contributor_type = "institution, institution, institution"
+contributor_institution = "E-PROFILE, AERIS-ESPRI"
+publisher_name = "AERIS-ESPRI"
+publisher_email = "espri-contact@ipsl.fr"
+publisher_type = "institution"
+publisher_url = "https://www.espri.ipsl.fr"
+publisher_institution = "AERIS-ESPRI"
+time_coverage_start = ""
+time_coverage_end = ""
+time_coverage_duration = "P1D"
+time_coverage_resolution = "P1M"
+geospatial_lat_min = ""
+geospatial_lat_max = ""
+geospatial_lon_min = ""
+geospatial_lon_max = ""
+geospatial_lat_units = "degrees_north"
+geospatial_lon_units = "degrees_east"
+geospatial_lat_resolution = "0 degree_north"
+geospatial_lon_resolution = "0 degree_east"
+geospatial_vertical_min = 15.0
+geospatial_vertical_max = 15360.0
+geospatial_vertical_positive = "up"
+geospatial_vertical_units = "m"
+geospatial_vertical_resolution = "15 meters"
+wmo_id = ""
+optical_module_id = ""
+overlap_function = ""
+overlap_is_corrected = ""
+Conventions = "ACDD-1.3, CF-1.8"
+cdm_data_type = "Station"
+keywords = "GCMD:EARTH SCIENCE, GCMD:ATMOSPHERE, GCMD:CLOUDS, GCMD:CLOUD PROPERTIES, GCMD:CLOUD BASE HEIGHT, GCMD:AEROSOLS, GCMD:AEROSOL BACKSCATTER, GCMD:SPECTRAL/ENGINEERING, GCMD:LIDAR, GCMD:LIDAR BACKSCATTER"
+platform = "In Situ Land-based Platforms, GROUND-BASED OBSERVATIONS"
+instruments = "GCMD:Earth Remote Sensing Instruments, GCMD:Active Remote Sensing, GCMD:Profilers/Sounders, GCMD:Lidar/Laser Sounders, GCMD:CLOUD LIDAR, GCMD: LIDAR"
+instrument_vocabulary = "GCMD:GCMD Keywords"
+instrument_serial_number = ""
+instrument_firmware_version = ""
+instrument_id = ""
+instrument_type = ""
+platform_vocabulary = "GCMD:GCMD Keywords"
+keywords_vocabulary = "GCMD:GCMD Keywords, CF:NetCDF COARDS Climate and Forecast Standard Names"
+standard_name_vocabulary = "CF Standard Name Table v77"
+processing_level = "L2B"
+licence = "CC-BY 4.0"
+featureType = "timeSeries"
+
+[Variables.time.Attributes]
+standard_name = "time"
+axis = "T"
+long_name = "time"
+comment = "The time values of the station, following the standard CF calendar, in days since 1970-01-01 00:00:00"
+coverage_content_type = "coordinate"
+units = "days since 1970-01-01"
+
+
+[Variables.time.Encoding]
+dtype = "double"
+calendar = "standard"
+units = "days since 1970-01-01"
+complevel = 0
+zlib = true
+
+
+[Variables.station_name.Attributes]
+standard_name = "platform_name"
+long_name = "platform name"
+comment = "platform's name"
+coverage_content_type = "auxiliaryInformation"
+cf_role = "timeseries_id"
+platform_id = ""
+#ancillary_variables = "station_latitude station_longitude station_altitude sensor_height"
+
+[Variables.station_name.Encoding]
+dtype = "str"
+complevel = 0
+zlib = true
+
+[Variables.station_latitude.Attributes]
+#standard_name = "platform_name latitude"
+standard_name = "latitude"
+axis = "Y"
+long_name = "platform latitude"
+comment = "platform's latitude"
+coverage_content_type = "coordinate"
+units = "degrees_north"
+
+[Variables.station_latitude.Encoding]
+_FillValue = -999
+dtype = "float"
+complevel = 0
+zlib = true
+
+[Variables.station_longitude.Attributes]
+#standard_name = "platform_name longitude"
+standard_name = "longitude"
+axis = "X"
+long_name = "platform longitude"
+comment = "platform's longitude"
+coverage_content_type = "coordinate"
+units = "degrees_east"
+
+[Variables.station_longitude.Encoding]
+_FillValue = -999
+dtype = "float"
+complevel = 0
+zlib = true
+
+[Variables.station_altitude.Attributes]
+#standard_name = "platform_name altitude"
+standard_name = "altitude"
+axis = "Z"
+long_name = "platform altitude"
+comment = "platform's altitude"
+coverage_content_type = "coordinate"
+units = "m"
+positive = "up"
+
+[Variables.station_altitude.Encoding]
+_FillValue = -999
+dtype = "float"
+complevel = 0
+zlib = true
+
+[Variables.sensor_height.Attributes]
+#standard_name = "platform_name height"
+standard_name = "altitude"
+long_name = "platform height"
+comment = "platform's height"
+coverage_content_type = "coordinate"
+units = "m"
+positive = "up"
+[Variables.sensor_height.Encoding]
+_FillValue = -999
+dtype = "float"
+complevel = 0
+zlib = true
+
+[Variables.ABLH.Attributes]
+standard_name = "atmosphere_boundary_layer_thickness"
+long_name = "atmosphere boundary layer thickness"
+comment = "After quality control ; above ground level"
+coverage_content_type = "physicalMeasurement"
+units = "m"
+
+[Variables.ABLH.Encoding]
+_FillValue = -999
+dtype = "float"
+complevel = 0
+zlib = true
+
+[Variables.MLH.Attributes]
+long_name = "atmosphere mixed layer thickness"
+comment = "After quality control ; above ground level"
+units = "m"
+
+[Variables.MLH.Encoding]
+_FillValue = -999
+dtype = "float"
+complevel = 0
+zlib = true
+
+[Variables.cloud_base_altitude.Attributes]
+standard_name = "cloud_base_altitude"
+long_name = "cloud base altitude"
+comment = "above ground level"
+units = "m"
+
+[Variables.cloud_base_altitude.Encoding]
+_FillValue = -999
+dtype = "float"
+complevel = 0
+zlib = true
+
+[Variables.precip_FLAG.Attributes]
+standard_name = "quality_flag"
+long_name = "precipitation flag"
+comment = "precipitation flag"
+flag_values = [0, 1]
+flag_meanings = "no_precipitation precipitation"
+
+[Variables.precip_FLAG.Encoding]
+_FillValue = -9
+dtype = "int32"
+complevel = 0
+zlib = true
+
+[Variables.quality_FLAG.Attributes]
+standard_name = "quality_flag"
+long_name = "mlh_flag"
+comment = "flag for MLH after quality control"
+flag_values = [0, 1, 10, 100, 1000, 10000]
+flag_meanings = "valid_mlh rain_detected stuck_MLH_during_daytime overestimation_of_MLH underestimation_during_deep_convection residual_layer"
+
+[Variables.quality_FLAG.Encoding]
+_FillValue = -9
+dtype = "int32"
+complevel = 0
+zlib = true

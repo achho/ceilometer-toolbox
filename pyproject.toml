@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=61.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ceilometer-toolbox"
+version = "0.0.0"
+dependencies = [
+    "xarray",
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "solpos",
+    "dask",
+    "raw2l1@git+https://github.com/RUBclim/raw2l1",
+    "qc-sf-python@git+https://github.com/RUBclim/qc-sf-python"
+]
+requires-python = ">=3.11"
+authors = [{ name = "Jonas Kittner", email = "jonas.kittner@rub.de" }]
+maintainers = [{ name = "Jonas Kittner", email = "jonas.kittner@rub.de" }]
+description =  "library to process data from ceilometers"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE*"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+
+[project.urls]
+Homepage = "https://github.com/RUBclim/ceilometer-toolbox"
+Documentation = "https://rubclim.github.io/ceilometer-toolbox/"
+Repository = "https://github.com/RUBclim/ceilometer-toolbox"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "coverage",
+    "covdefaults",
+    "freezegun",
+    "Pillow",
+    "netcdf4",
+    "furo",
+    "myst_parser",
+    "pytest-randomly",
+    "sphinx<9",
+    "sphinx-copybutton",
+    "sphinx-toolbox",
+    "sphinx_autodoc_typehints",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = { find = { where = ["src"], include = ["ceilometer_toolbox*"], exclude = ["tests", "testing*"]}}
+
+[tool.coverage.report]
+fail_under = 100
+
+[tool.coverage.run]
+parallel = true
+plugins = ["covdefaults"]
+omit = ["example.py"]
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+warn_unreachable = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = ["tests.*", "testing.*"]
+disallow_untyped_defs = false

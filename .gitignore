@@ -1,0 +1,17 @@
+.coverage
+.mypy_cache
+.pytest*
+.tox
+.vscode
+.claude
+__pycache__
+venv
+*.egg-info
+build/*
+*.nc
+!testing/**/*.nc
+ceilometer-input
+ceilometer-output
+*.png
+tree.txt
+uv.lock
