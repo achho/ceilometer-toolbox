@@ -471,6 +471,27 @@ def test_stratfinder_in_docker_builds_command_without_optional_args(
     assert repr('') in cmd
 
 
+def test_stratfinder_in_docker_uses_default_container_image(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    result = mock.MagicMock()
+    result.returncode = 0
+
+    with mock.patch(
+        'ceilometer_toolbox.device.subprocess.run',
+        return_value=result,
+    ) as run:
+        Ceilometer.stratfinder_in_docker(
+            today_file='today.nc',
+            output_file='out.nc',
+            beta_file='beta.nc',
+            config_file='config.json',
+            directory_mount=str(tmp_path),
+        )
+
+    cmd = run.call_args[0][0]
+    assert 'ghcr.io/rubclim/stratfinder:latest' in cmd
+
+
 def test_stratfinder_in_docker_uses_cwd_when_no_directory_mount(monkeypatch):
     monkeypatch.chdir('/')
     result = mock.MagicMock()
@@ -842,6 +863,32 @@ def test_process_stratfinder_qc_with_explicit_config_files(dirs, archive):
         )
 
     assert ret == 0
+
+
+def test_process_stratfinder_qc_proceeds_without_yesterday_file(dirs, archive):
+    cel = Ceilometer(
+        device_id='IA',
+        input_dir=dirs['input_dir'],
+        archive=archive,
+        stratfinder_config_file='config.json',
+        stratfinder_qc_value_config_file='values.toml',
+        stratfinder_qc_metadata_file='meta.toml',
+    )
+
+    today = archive.put_file('IA', 'L2A_stratfinder', '2026-03-25')
+    _touch(today)
+    # deliberately do NOT create a yesterday file
+
+    with mock.patch('ceilometer_toolbox.device.qc_daily_final', return_value=0) as qc:
+        ret = cel.process_stratfinder_qc(
+            start_date=date(2026, 3, 25),
+            end_date=date(2026, 3, 25),
+        )
+
+    assert ret == 0
+    qc.assert_called_once()
+    _, kwargs = qc.call_args
+    assert kwargs['day_1a'] is None
 
 
 def test_process_stratfinder_qc_succeeds(dirs, archive):

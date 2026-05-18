@@ -647,10 +647,8 @@ class Ceilometer:
                 file_type='L2A_stratfinder',
                 file_date=start_date + timedelta(days=1),
             )
-            if not all([yesterday_file, today_file]):
-                print(
-                    f"One of the required files for {start_date} does not exist",
-                )
+            if not today_file:
+                print(f"The today file for {start_date} does not exist")
                 start_date += timedelta(days=1)
                 continue
 
