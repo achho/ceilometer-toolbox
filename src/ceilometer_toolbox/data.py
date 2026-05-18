@@ -505,7 +505,6 @@ class CeilometerArchive:
 
             dataset = xr.open_mfdataset(
                 files,
-                data_vars='all',
                 join='outer',
                 preprocess=_preprocess,
                 **kwargs,

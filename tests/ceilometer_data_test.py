@@ -607,7 +607,6 @@ def test_open_dataset_beta_uses_preprocess_with_tolerance(tmp_path):
     open_dataset.assert_called_once_with(files[0])
     open_mfdataset.assert_called_once_with(
         files,
-        data_vars='all',
         join='outer',
         preprocess=mock.ANY,
         combine='nested',

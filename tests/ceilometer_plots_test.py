@@ -39,6 +39,7 @@ def test_beta_plot_1d(tmp_path, ceilometer):
         start_date=datetime(2026, 3, 25, 23, 0),
         end_date=datetime(2026, 3, 25, 23, 0) + timedelta(days=1),
         output_path=str(tmp_path / 'L1_beta_1d.jpg'),
+        beta_file_type='L1',
     )
     assert_plot_is_equal(
         fig,
@@ -52,6 +53,7 @@ def test_beta_plot_1d_alt_max(tmp_path, ceilometer):
         end_date=datetime(2026, 3, 25, 23, 0) + timedelta(days=1),
         output_path=str(tmp_path / 'L1_beta_1d_alt_max.jpg'),
         alt_max=4500,
+        beta_file_type='L1',
     )
     assert_plot_is_equal(
         fig,
@@ -64,6 +66,7 @@ def test_beta_plot_30d(tmp_path, ceilometer):
         start_date=datetime(2026, 3, 25, 23, 0),
         end_date=datetime(2026, 3, 25, 23, 0) + timedelta(days=30),
         output_path=str(tmp_path / 'L1_beta_30d.jpg'),
+        beta_file_type='L1',
     )
     assert_plot_is_equal(
         fig,

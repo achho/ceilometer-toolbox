@@ -8,6 +8,7 @@ from datetime import timedelta
 from glob import glob
 from multiprocessing import Pool
 from typing import Any
+from typing import Literal
 
 import matplotlib.patheffects as mpe
 import matplotlib.pyplot as plt
@@ -690,6 +691,7 @@ class Ceilometer:
                 [xr.Dataset, timedelta],
                 xr.Dataset,
             ] = resample_dataset,
+            beta_file_type: Literal['L1', 'L2A_beta'] = 'L2A_beta',
             **kwargs: dict[str, Any],
     ) -> Figure:
         """Make a plot of the backscatter coefficient (beta) over time
@@ -706,6 +708,12 @@ class Ceilometer:
         :param filter_qc: Whether to filter the MLH, ABLH, and CBH values based on
             the quality flag. If True, only values with a quality flag of 0 and a
             precipitation flag of 0 will be shown.
+        :param resampler: A function that takes an xarray Dataset and a timedelta and
+            returns a resampled xarray Dataset. This can be used to customize the
+            resampling of the data, e.g. by using a different resampling method or by
+            resampling to a different time resolution.
+        :param beta_file_type: The file type to use for the beta data. This can be
+            either 'L1' or 'L2A_beta'.
         :param kwargs: Additional keyword arguments to pass to the xarray plotting
             function. This can be used to customize the plot, e.g. by changing the
             colormap or the colorbar settings.
@@ -713,7 +721,7 @@ class Ceilometer:
         """
         with self.archive.open_dataset(
             device_id=self.device_id,
-            file_type='L1',
+            file_type=beta_file_type,
             start_date=start_date,
             end_date=end_date,
             engine='netcdf4',
@@ -725,8 +733,14 @@ class Ceilometer:
             # capture station coordinates before subsetting/resampling since
             # minimal/data_vars settings or selecting variables may drop scalar
             # metadata variables like station_latitude/station_longitude
-            lat = float(ds['station_latitude'].item())
-            lon = float(ds['station_longitude'].item())
+            try:
+                # this is for L1
+                lat = float(ds['station_latitude'].item())
+                lon = float(ds['station_longitude'].item())
+            except NotImplementedError:
+                # this is for L2A_beta
+                lat = float(ds['station_latitude'].values[0])
+                lon = float(ds['station_longitude'].values[0])
 
             ds = resampler(ds[['beta']], delta)
             # compute log10 of beta
